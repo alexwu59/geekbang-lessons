@@ -43,7 +43,20 @@ public class DatabaseUserRepository implements UserRepository {
 
     @Override
     public boolean save(User user) {
-        return false;
+
+        try {
+
+            PreparedStatement statement = getConnection().prepareStatement(INSERT_USER_DML_SQL);
+            statement.setString(1,user.getName());
+            statement.setString(2,user.getPassword());
+            statement.setString(3,user.getEmail());
+            statement.setString(4,user.getPhoneNumber());
+            statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return true;
     }
 
     @Override
@@ -94,9 +107,11 @@ public class DatabaseUserRepository implements UserRepository {
                     // 以 id 为例，  user.setId(resultSet.getLong("id"));
                     setterMethodFromUser.invoke(user, resultValue);
                 }
+                users.add(user);
             }
             return users;
         }, e -> {
+            e.printStackTrace();
             // 异常处理
         });
     }

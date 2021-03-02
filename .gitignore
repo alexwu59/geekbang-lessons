@@ -1,4 +1,5 @@
 # maven ignore
+/projects/stage-0/user-platform/user-web/userPlatformDB/*
 target/
 *.jar
 !.mvn/wrapper/*
@@ -26,7 +27,8 @@ target/
 *.diff
 *.patch
 *.tmp
-
+/user-platform/*
+/projects/stage-0/user-platform/user-platform/*
 # system ignore
 .DS_Store
 Thumbs.db

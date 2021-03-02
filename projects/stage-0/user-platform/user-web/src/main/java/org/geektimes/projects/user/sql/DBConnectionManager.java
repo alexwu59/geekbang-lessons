@@ -34,7 +34,7 @@ public class DBConnectionManager {
         }
     }
 
-    public static final String DROP_USERS_TABLE_DDL_SQL = "DROP TABLE users";
+    public static final String DROP_USERS_TABLE_DDL_SQL = " DROP TABLE users";
 
     public static final String CREATE_USERS_TABLE_DDL_SQL = "CREATE TABLE users(" +
             "id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
@@ -45,11 +45,7 @@ public class DBConnectionManager {
             ")";
 
     public static final String INSERT_USER_DML_SQL = "INSERT INTO users(name,password,email,phoneNumber) VALUES " +
-            "('A','******','a@gmail.com','1') , " +
-            "('B','******','b@gmail.com','2') , " +
-            "('C','******','c@gmail.com','3') , " +
-            "('D','******','d@gmail.com','4') , " +
-            "('E','******','e@gmail.com','5')";
+            "(?,?,?,?) ";
 
 
     public static void main(String[] args) throws Exception {
@@ -60,12 +56,12 @@ public class DBConnectionManager {
 //        Driver driver = DriverManager.getDriver("jdbc:derby:/db/user-platform;create=true");
 //        Connection connection = driver.connect("jdbc:derby:/db/user-platform;create=true", new Properties());
 
-        String databaseURL = "jdbc:derby:/db/user-platform;create=true";
+        String databaseURL = "jdbc:derby:user-platform;create=true";
         Connection connection = DriverManager.getConnection(databaseURL);
 
         Statement statement = connection.createStatement();
         // 删除 users 表
-        System.out.println(statement.execute(DROP_USERS_TABLE_DDL_SQL)); // false
+      //  System.out.println(statement.execute(DROP_USERS_TABLE_DDL_SQL)); // false
         // 创建 users 表
         System.out.println(statement.execute(CREATE_USERS_TABLE_DDL_SQL)); // false
         System.out.println(statement.executeUpdate(INSERT_USER_DML_SQL));  // 5
